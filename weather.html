@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>weather App</title>
+    <link rel="stylesheet" href="we.css">
+</head>
+<body>
+    <div class="app-main">
+        <div class="search-input">
+            <input type="text" id="input-box" class="input-box " placeholder="Enter City Name...">
+        </div>
+        <div class="weather-body">
+            <div class="loction-del">
+                <div class="city" id="city">Lahore</div>
+                <div class="date" id="date">28 Jnauary (Friday)2020</div>
+            </div>
+            <div class="weather-status">
+                <div class="temp" id="temp">32&deg;C</div>
+                <div class="main-mix" id="main-mix">18&deg;C (min)/   34&deg;C</div>
+                <div class="weather" id="weather">Cloud</div>
+                <div class="img">   </div>
+            </div>
+        </div>
+    </div>
+    
+</body>
+
+
+
+ <script>
+  // making object of weather api 
+
+//   api.openweathermap.org/data/2.5/weather?q={city name}&appid={your api key}
+
+
+const weatherApi = {
+    key:" 42714b27eaa12d2c6ab17083cd51b29e",
+    baseUrl:  "https://api.openweathermap.org/data/2.5/weather?"
+
+    
+}
+
+const searchinputbox=document.getElementById('input-box');
+
+  
+  searchinputbox.addEventListener('keypress', (event)=> {
+
+      if(event.keyCode == 13)
+      {
+          console.log(searchinputbox.value);
+          getweatherReport(searchinputbox.value);
+      }
+  });
+
+
+// console.log(weatherapi);
+ 
+
+// const url = `https://api.openweathermap.org/data/2.5/weather?q=${searchinputbox}&appid=${apiKey}&units=metric`;
+// const apikey= " 42714b27eaa12d2c6ab17083cd51b29e";
+
+
+  function getweatherReport(city)
+  {
+    //    fetch(`https://api.openweathermap.org/data/2.5/weather?q=+${searchinputbox.value}+&appid=42714b27eaa12d2c6ab17083cd51b29e&unit=metric` )
+       
+
+       fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=42714b27eaa12d2c6ab17083cd51b29e`)
+
+    // fetch(url)
+
+      .then(weather=> {
+          return weather.json();
+
+}).then(showWeatherReport);
+  }
+
+
+  function showWeatherReport(weather)
+  {
+      console.log(weather);
+
+
+       let city = document.getElementById("city");
+       city.innerText= `${weather.name},${weather.sys.country}`
+
+       
+
+
+
+       let temperature = document.getElementById("temp");
+        temp.innerHTML=`${Math.round(weather.main.temp)}&deg;C`;
+
+
+       let mainmax=document.getElementById("main-mix")
+        mainmax.innerHTML = `${Math.floor(weather.main.temp_min)}&deg;C   (min)/
+        ${Math.ceil(weather.main.temp_max)}&deg;C (max)`
+
+
+         let weathertype= document.getElementById("weather");
+         weathertype.innerText=`${weather.weather[0].main}` 
+
+
+
+          let date =document.getElementById("date");
+          let todaydate= new Date();
+          date.innerText = datemange(todaydate);
+
+ let type =document.getElementById("weather").textContent
+ 
+
+if(type === "Smoke")
+{
+    console.log(type)
+
+  var a =  document.body.style.backgroundImage = "url('g0e4.gif')";
+  
+}
+ else if(type === "Clouds")
+{
+    console.log(type)
+
+  var a =  document.body.style.backgroundImage = "url('1Zvm.gif')";
+//   document.app-main.style.backgroundColor="blue"
+  
+
+}
+
+
+else if(type === "Haze")
+{
+    console.log(type)
+
+  var a =  document.body.style.backgroundImage = "url('7Z6Q.gif')";
+//   document.app-main.style.backgroundColor="blue"
+  
+
+}
+
+else if(type === "thunderstorm")
+{
+    console.log(type)
+
+
+  var a =  document.body.style.backgroundImage = "url('efd2b7c1732eea11680ba5ec916e6b94.gif')";
+//   document.app-main.style.backgroundColor="blue"
+  
+
+}
+
+else if(type === "Rain")
+{
+    console.log(type)
+
+
+  var a =  document.body.style.backgroundImage = "url('7xbc.gif')";
+//   document.app-main.style.backgroundColor="blue"
+  
+
+}
+
+
+else if(type === "Clear")
+{
+    console.log(type)
+
+
+  var a =  document.body.style.backgroundImage = "url('SVTk.gif')";
+//   document.app-main.style.backgroundColor="blue"
+  
+
+}
+
+
+
+else if(type === "Mist")
+{
+    console.log(type)
+
+
+  var a =  document.body.style.backgroundImage = "url('IJNs.gif')";
+//   document.app-main.style.backgroundColor="blue"
+  
+
+}
+  }
+  function datemange(datefire){
+let mon=datefire.getMonth();
+console.log(mon)
+   let days =["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
+    let months =["January","February","march","April","June","July","August","September","October","November","December"];
+  
+       let year =datefire.getFullYear();
+       let month=months [`${mon-1}`];   
+       let date= datefire.getDate();
+       let day =days[datefire.getDay()];
+       
+        return `${date},${month}, ${year}`;
+  }
+ </script>
+</html>
